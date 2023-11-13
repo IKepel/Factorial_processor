@@ -45,10 +45,7 @@ namespace Factorial_processor
 
         private long CalculateFactorial(int n)
         {
-            if (n == 0 || n == 1)
-            {
-                return 1;
-            }
+            if (n == 1) return 1;
             else
             {
                 return n * CalculateFactorial(n - 1);
