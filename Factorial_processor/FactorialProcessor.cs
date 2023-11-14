@@ -19,12 +19,25 @@ namespace Factorial_processor
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
+            List<Thread> threads = new List<Thread>();
+
             if (parallelMode)
             {
-                Parallel.For(1, param + 1, i =>
+                for (int i = 1; i <= param; i++)
                 {
-                    PrintFactorial(i, CalculateFactorial(i));
-                });
+                    int copyOfI = i;
+                    Thread thread = new Thread(() =>
+                    {
+                        PrintFactorial(copyOfI, CalculateFactorial(copyOfI));
+                    });
+                    threads.Add(thread);
+                    thread.Start();
+                }
+
+                foreach (Thread thread in threads)
+                {
+                    thread.Join();
+                }
             }
             else
             {
